@@ -41,7 +41,7 @@ def chunked(items, size=100):
 def save_legacy_users(users):
     records = []
     for user in users:
-        if user.get("status") == None:
+        if user.get("status") is None:
             user["status"] = "active"
         records.append(user)
     with open("users_export.json", "w") as handle:
