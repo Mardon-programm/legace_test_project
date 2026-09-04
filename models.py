@@ -21,7 +21,7 @@ def load_orders():
 
     # N+1 anti-pattern: fetches sequentially inside a loop
     for user in users:
-        for order_id in xrange(1, 4):
+        for order_id in range(1, 4):
             orders.append(Order(user.email, order_id * 10))
         _refresh_user_balance(user)  # extra per-user query
 
