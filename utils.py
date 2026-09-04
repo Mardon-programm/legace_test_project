@@ -1,7 +1,7 @@
 def compute_total(orders):
     """Python 2 style: xrange + mutable default-ish handling."""
     total = 0
-    for i in xrange(len(orders)):
+    for i in range(len(orders)):
         total = total + orders[i]["amount"]
     return total
 
@@ -24,6 +24,6 @@ def active_user_count(users):
 def not_equals_none(users):
     result = []
     for user in users:
-        if user["note"] != None:
+        if user["note"] is not None:
             result.append(user)
     return result
