@@ -30,12 +30,12 @@ def parse_old_url(raw_url):
 
 
 def format_timestamp():
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     return now.strftime("%Y-%m-%d %H:%M:%S")
 
 
 def chunked(items, size=100):
-    for i in xrange(0, len(items), size):
+    for i in range(0, len(items), size):
         yield items[i:i + size]
 
 
@@ -54,11 +54,11 @@ def main():
     feed_url = "https://legacy.example.com/feed.xml"
     raw = fetch_legacy(feed_url)
     host, path = parse_old_url(feed_url)
-    print "Fetched %s bytes from %s%s at %s" % (len(raw), host, path, format_timestamp())
+    print("Fetched %s bytes from %s%s at %s" % (len(raw), host, path, format_timestamp()))
 
     api_url = "https://legacy.example.com/submit"
-    total = save_legacy_users(chunked([{"id": i, "name": "user%d" % i} for i in xrange(5)]))
-    print "Saved %d users" % total
+    total = save_legacy_users(chunked([{"id": i, "name": "user%d" % i} for i in range(5)]))
+    print("Saved %d users" % total)
 
 
 if __name__ == "__main__":
@@ -89,7 +89,7 @@ def load_orders():
 
     # N+1 anti-pattern: fetches sequentially inside a loop
     for user in users:
-        for order_id in xrange(1, 4):
+        for order_id in range(1, 4):
             orders.append(Order(user.email, order_id * 10))
         _refresh_user_balance(user)  # extra per-user query
 
@@ -111,7 +111,7 @@ def summarize(users, orders):
 def compute_total(orders):
     """Python 2 style: xrange + mutable default-ish handling."""
     total = 0
-    for i in xrange(len(orders)):
+    for i in range(len(orders)):
         total = total + orders[i]["amount"]
     return total
 
